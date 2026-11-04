@@ -195,6 +195,11 @@ function renderHeader() {
     toggle.setAttribute("aria-expanded", open);
   });
 
+  const header = document.querySelector(".site-header");
+  const onScroll = () => header.classList.toggle("scrolled", window.scrollY > 12);
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+
   updateCartCount();
 }
 
@@ -336,7 +341,130 @@ function renderHome() {
       .map(productCard)
       .join("");
     bindAddButtons(feat);
+    initFeaturedCarousel();
   }
+
+  initHeroCarousel();
+}
+
+/* ---------- Hero carousel ---------- */
+
+function initHeroCarousel() {
+  const root = document.getElementById("heroCarousel");
+  if (!root) return;
+
+  const slides = Array.from(root.querySelectorAll(".slide"));
+  const dotsWrap = document.getElementById("heroDots");
+  const reduced =
+    typeof window.matchMedia === "function" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let idx = 0;
+  let timer = null;
+
+  dotsWrap.innerHTML = slides
+    .map(
+      (_, i) =>
+        `<button aria-label="Go to slide ${i + 1}" class="${i === 0 ? "active" : ""}"></button>`
+    )
+    .join("");
+  const dots = Array.from(dotsWrap.children);
+
+  function go(n) {
+    idx = (n + slides.length) % slides.length;
+    slides.forEach((s, i) => s.classList.toggle("active", i === idx));
+    dots.forEach((d, i) => {
+      d.classList.toggle("active", i === idx);
+      d.setAttribute("aria-selected", i === idx);
+    });
+  }
+
+  function stop() {
+    clearInterval(timer);
+    timer = null;
+  }
+
+  function start() {
+    if (reduced) return;
+    stop();
+    timer = setInterval(() => go(idx + 1), 6000);
+  }
+
+  root.querySelector(".next").addEventListener("click", () => {
+    go(idx + 1);
+    start();
+  });
+  root.querySelector(".prev").addEventListener("click", () => {
+    go(idx - 1);
+    start();
+  });
+  dots.forEach((d, i) =>
+    d.addEventListener("click", () => {
+      go(i);
+      start();
+    })
+  );
+
+  root.addEventListener("mouseenter", stop);
+  root.addEventListener("mouseleave", start);
+
+  let touchX = null;
+  root.addEventListener(
+    "touchstart",
+    (e) => {
+      touchX = e.touches[0].clientX;
+      stop();
+    },
+    { passive: true }
+  );
+  root.addEventListener(
+    "touchend",
+    (e) => {
+      if (touchX == null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if (Math.abs(dx) > 45) go(idx + (dx < 0 ? 1 : -1));
+      touchX = null;
+      start();
+    },
+    { passive: true }
+  );
+
+  document.addEventListener("visibilitychange", () =>
+    document.hidden ? stop() : start()
+  );
+
+  start();
+}
+
+/* ---------- Featured product carousel ---------- */
+
+function initFeaturedCarousel() {
+  const track = document.getElementById("homeFeatured");
+  if (!track) return;
+  const wrap = track.closest(".product-carousel");
+  if (!wrap) return;
+
+  const prev = wrap.querySelector(".prev");
+  const next = wrap.querySelector(".next");
+
+  const step = () => {
+    const card = track.querySelector(".product-card");
+    return card ? card.offsetWidth + 22 : 284;
+  };
+
+  prev.addEventListener("click", () =>
+    track.scrollBy({ left: -step() * 2, behavior: "smooth" })
+  );
+  next.addEventListener("click", () =>
+    track.scrollBy({ left: step() * 2, behavior: "smooth" })
+  );
+
+  const sync = () => {
+    const scrollable = track.scrollWidth > track.clientWidth + 10;
+    prev.style.display = scrollable ? "" : "none";
+    next.style.display = scrollable ? "" : "none";
+  };
+  sync();
+  window.addEventListener("resize", sync);
 }
 
 /* ---------- Boot ---------- */

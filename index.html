@@ -11,34 +11,67 @@
 
   <div id="header"></div>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-grid">
-      <div>
-        <span class="eyebrow">Since 1998 · BIS Hallmarked</span>
-        <h1>Jewellery that tells <em>your</em> story</h1>
-        <p>
-          Welcome to Aliya — where heritage craftsmanship meets modern design.
-          Explore unique gold and diamond pieces at today's transparent rates,
-          with flexible offers made for every celebration.
-        </p>
-        <div class="hero-actions">
-          <a class="btn btn-gold" href="shop.html">Explore Collection</a>
-          <a class="btn btn-outline" href="rates.html" style="color:#e8c65a;border-color:#e8c65a">Today's Rates</a>
+  <!-- HERO CAROUSEL -->
+  <section class="hero-carousel" id="heroCarousel" aria-roledescription="carousel" aria-label="Highlights">
+    <div class="slides">
+      <div class="slide slide-gold active" role="group" aria-label="Slide 1 of 3">
+        <div class="container slide-content">
+          <span class="eyebrow">Since 1998 · BIS Hallmarked</span>
+          <h1>Jewellery that tells <em>your</em> story</h1>
+          <p>
+            Welcome to Aliya — where heritage craftsmanship meets modern design.
+            Explore unique gold and diamond pieces at today's transparent rates,
+            with flexible offers made for every celebration.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="shop.html">Explore Collection</a>
+            <a class="btn btn-outline" href="rates.html" style="color:#e8c65a;border-color:#e8c65a">Today's Rates</a>
+          </div>
+          <div class="hero-stats">
+            <div><b>25+</b><span>YEARS OF TRUST</span></div>
+            <div><b>100%</b><span>BIS HALLMARKED</span></div>
+            <div><b>IGI</b><span>CERTIFIED DIAMONDS</span></div>
+          </div>
         </div>
-        <div class="hero-stats">
-          <div><b>25+</b><span>YEARS OF TRUST</span></div>
-          <div><b>100%</b><span>BIS HALLMARKED</span></div>
-          <div><b>IGI</b><span>CERTIFIED DIAMONDS</span></div>
-        </div>
+        <span class="slide-art" aria-hidden="true">💍</span>
       </div>
-      <div class="hero-card">
-        <h3>◆ TODAY'S RATES</h3>
-        <div id="heroRates"></div>
-        <p class="rate-date">Updated: <span id="rateDate"></span> · Indicative rates</p>
-        <a class="btn btn-gold btn-block" href="shop.html">Shop at Today's Rate</a>
+
+      <div class="slide slide-offer" role="group" aria-label="Slide 2 of 3">
+        <div class="container slide-content">
+          <span class="eyebrow">Flexible Festive Offers</span>
+          <h1>Flat 10% off with code <em>ALIYA10</em></h1>
+          <p>
+            Stack the savings — coupons work on sale prices too, with no hidden
+            conditions. Enjoy 5% extra on all diamonds and ₹5,000 off above ₹75,000.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="rates.html">View All Offers</a>
+            <a class="btn btn-outline" href="shop.html" style="color:#e8c65a;border-color:#e8c65a">Shop Now</a>
+          </div>
+        </div>
+        <span class="slide-art" aria-hidden="true">%</span>
+      </div>
+
+      <div class="slide slide-diamond" role="group" aria-label="Slide 3 of 3">
+        <div class="container slide-content">
+          <span class="eyebrow">IGI Certified · Conflict Free</span>
+          <h1>Diamonds that <em>dazzle</em>, rates that never hide</h1>
+          <p>
+            Every stone is laser-inscribed and independently graded — priced from
+            today's transparent per-carat rate, with the certificate in your hand.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-gold" href="shop.html?cat=diamond">Shop Diamonds</a>
+            <a class="btn btn-outline" href="rates.html" style="color:#a8c4ff;border-color:#a8c4ff">Diamond Rate</a>
+          </div>
+        </div>
+        <span class="slide-art" aria-hidden="true">💎</span>
       </div>
     </div>
+
+    <button class="carousel-btn prev" id="heroPrev" aria-label="Previous slide">‹</button>
+    <button class="carousel-btn next" id="heroNext" aria-label="Next slide">›</button>
+    <div class="carousel-dots" id="heroDots" role="tablist" aria-label="Slide selectors"></div>
   </section>
 
   <!-- RATES -->
@@ -74,7 +107,13 @@
         <h2>Featured Pieces</h2>
         <p>One-of-a-kind designs chosen by our karigars this season.</p>
       </div>
-      <div class="product-grid" id="homeFeatured"></div>
+      <div class="product-carousel">
+        <button class="pc-arrow prev" data-scroll="-1" aria-label="Scroll products left">‹</button>
+        <div class="pc-viewport">
+          <div class="pc-track" id="homeFeatured"></div>
+        </div>
+        <button class="pc-arrow next" data-scroll="1" aria-label="Scroll products right">›</button>
+      </div>
       <div style="text-align:center;margin-top:34px">
         <a class="btn btn-dark" href="shop.html">View All Jewellery</a>
       </div>
@@ -94,16 +133,5 @@
 
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      var wrap = document.getElementById("heroRates");
-      var rows = RATES.gold.map(function (g) {
-        return '<div class="rate-row"><span class="r-name">' + g.purity + ' Gold</span><span class="r-val">' + formatINR(g.perGram) + ' <small>/g</small></span></div>';
-      });
-      rows.push('<div class="rate-row"><span class="r-name">Diamond (1 ct)</span><span class="r-val">' + formatINR(RATES.diamond[0].perCarat) + ' <small>/ct</small></span></div>');
-      wrap.innerHTML = rows.join("");
-      document.getElementById("rateDate").textContent = RATES.updated;
-    });
-  </script>
 </body>
 </html>
