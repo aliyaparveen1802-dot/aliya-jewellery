@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Checkout — Aliya Jewellery</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="checkout">
+
+  <div id="header"></div>
+
+  <section class="page-banner">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a> / <a href="cart.html">Bag</a> / Checkout</div>
+      <h1>Secure Checkout</h1>
+      <p>Fill in your delivery details — our team confirms every order personally by phone.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <!-- FORM -->
+      <form class="checkout-layout" id="checkoutForm" novalidate>
+        <div class="card">
+          <h2>Delivery Details</h2>
+          <div class="form-grid">
+            <div class="field">
+              <label for="fname">Full Name <span class="req">*</span></label>
+              <input type="text" id="fname" name="fname" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone <span class="req">*</span></label>
+              <input type="tel" id="phone" name="phone" placeholder="10-digit mobile number" required />
+            </div>
+            <div class="field full">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" placeholder="you@example.com" />
+            </div>
+            <div class="field full">
+              <label for="address">Address <span class="req">*</span></label>
+              <textarea id="address" name="address" rows="3" placeholder="House / street / landmark" required></textarea>
+            </div>
+            <div class="field">
+              <label for="city">City <span class="req">*</span></label>
+              <input type="text" id="city" name="city" placeholder="City" required />
+            </div>
+            <div class="field">
+              <label for="pin">PIN Code <span class="req">*</span></label>
+              <input type="text" id="pin" name="pin" placeholder="6-digit PIN" required />
+            </div>
+            <div class="field full">
+              <label for="notes">Order Notes</label>
+              <input type="text" id="notes" name="notes" placeholder="Gift wrap, preferred delivery time…" />
+            </div>
+          </div>
+          <p class="form-note">🔒 This is a demo checkout — no real payment is collected. A stylist will call you to confirm the order.</p>
+        </div>
+
+        <div class="card">
+          <h2>Your Order</h2>
+          <div id="checkoutItems"></div>
+          <div id="checkoutSummary"></div>
+          <button class="btn btn-gold btn-block" type="submit" style="margin-top:16px">Place Order</button>
+          <a class="btn btn-outline btn-block" href="cart.html" style="margin-top:10px">Back to Bag</a>
+        </div>
+      </form>
+
+      <!-- SUCCESS -->
+      <div class="card order-success" id="orderSuccess" hidden>
+        <div class="tick">✓</div>
+        <h2>Thank you! Your order is confirmed.</h2>
+        <p id="successMsg"></p>
+        <div class="order-id" id="orderId"></div>
+        <p class="form-note" id="successSummary"></p>
+        <div class="hero-actions" style="justify-content:center">
+          <a class="btn btn-gold" href="shop.html">Continue Shopping</a>
+          <a class="btn btn-outline" href="index.html">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/checkout.js"></script>
+</body>
+</html>

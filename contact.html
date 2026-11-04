@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact — Aliya Jewellery</title>
+  <meta name="description" content="Visit or contact Aliya Jewellery — boutique address, phone, email and enquiry form." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="contact">
+
+  <div id="header"></div>
+
+  <section class="page-banner">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a> / Contact</div>
+      <h1>We'd Love to Hear From You</h1>
+      <p>Questions about a piece, a rate, or an appointment? Just ask.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container contact-layout">
+      <div class="card">
+        <h2>Boutique Details</h2>
+        <ul class="info-list">
+          <li>
+            <span class="ic">📍</span>
+            <div><b>Visit us</b><span id="cAddress"></span></div>
+          </li>
+          <li>
+            <span class="ic">📞</span>
+            <div><b>Call us</b><span id="cPhone"></span></div>
+          </li>
+          <li>
+            <span class="ic">✉️</span>
+            <div><b>Email</b><span id="cEmail"></span></div>
+          </li>
+          <li>
+            <span class="ic">🕐</span>
+            <div><b>Opening hours</b><span id="cHours"></span></div>
+          </li>
+          <li>
+            <span class="ic">💬</span>
+            <div><b>WhatsApp</b><span>Quick answers on designs, rates and offers</span></div>
+          </li>
+        </ul>
+        <a class="btn btn-gold btn-block" id="callBtn" href="#" style="margin-top:16px">Call the Boutique</a>
+      </div>
+
+      <div class="card">
+        <h2>Send an Enquiry</h2>
+        <form id="contactForm" novalidate>
+          <div class="form-grid">
+            <div class="field">
+              <label for="cName">Name <span class="req">*</span></label>
+              <input type="text" id="cName" placeholder="Your name" required />
+            </div>
+            <div class="field">
+              <label for="cPhoneIn">Phone <span class="req">*</span></label>
+              <input type="tel" id="cPhoneIn" placeholder="10-digit mobile" required />
+            </div>
+            <div class="field full">
+              <label for="cEmailIn">Email</label>
+              <input type="email" id="cEmailIn" placeholder="you@example.com" />
+            </div>
+            <div class="field full">
+              <label for="cSubject">I'm interested in</label>
+              <select id="cSubject">
+                <option>Gold jewellery</option>
+                <option>Diamond jewellery</option>
+                <option>Custom / bespoke design</option>
+                <option>Today's rates</option>
+                <option>Exchange or buyback</option>
+                <option>Appointment booking</option>
+              </select>
+            </div>
+            <div class="field full">
+              <label for="cMsg">Message <span class="req">*</span></label>
+              <textarea id="cMsg" rows="4" placeholder="Tell us what you're looking for…" required></textarea>
+            </div>
+          </div>
+          <button class="btn btn-gold" type="submit" style="margin-top:6px">Send Enquiry</button>
+          <p class="form-note">We reply within one working day. This demo form doesn't send data anywhere.</p>
+        </form>
+        <div id="contactDone" hidden class="empty-state">
+          <div class="big">💌</div>
+          <h3>Enquiry received!</h3>
+          <p>Thank you — a stylist will get back to you shortly.</p>
+          <a class="btn btn-outline" href="shop.html">Browse Jewellery</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("cAddress").textContent = SITE.address;
+      document.getElementById("cPhone").textContent = SITE.phone;
+      document.getElementById("cEmail").textContent = SITE.email;
+      document.getElementById("cHours").textContent = SITE.hours;
+      document.getElementById("callBtn").href = "tel:" + SITE.phone.replace(/\s/g, "");
+
+      document.getElementById("contactForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        var name = document.getElementById("cName").value.trim();
+        var phone = document.getElementById("cPhoneIn").value.trim();
+        var msg = document.getElementById("cMsg").value.trim();
+
+        if (name.length < 2 || !/^[6-9]\d{9}$/.test(phone) || msg.length < 5) {
+          showToast("Please fill name, valid mobile and message");
+          return;
+        }
+
+        this.hidden = true;
+        document.getElementById("contactDone").hidden = false;
+        showToast("Enquiry sent ✓");
+      });
+    });
+  </script>
+</body>
+</html>

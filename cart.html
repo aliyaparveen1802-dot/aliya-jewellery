@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Shopping Bag — Aliya Jewellery</title>
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="cart">
+
+  <div id="header"></div>
+
+  <section class="page-banner">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a> / Shopping Bag</div>
+      <h1>Your Shopping Bag</h1>
+      <p>Review your pieces, apply a coupon, then check out in seconds.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="cart-layout" id="cartLayout" hidden>
+        <div class="card">
+          <h2>Bag Items</h2>
+          <div id="cartItems"></div>
+        </div>
+        <div class="card">
+          <h2>Order Summary</h2>
+          <div class="coupon-form">
+            <input type="text" id="couponInput" placeholder="Coupon code (e.g. ALIYA10)" aria-label="Coupon code" />
+            <button class="btn btn-dark btn-sm" id="applyCoupon" type="button">Apply</button>
+          </div>
+          <p class="p-meta" id="couponMsg" style="min-height:20px"></p>
+          <div id="summaryRows"></div>
+          <a class="btn btn-gold btn-block" href="checkout.html" style="margin-top:16px">Proceed to Checkout</a>
+          <a class="btn btn-outline btn-block" href="shop.html" style="margin-top:10px">Continue Shopping</a>
+          <p class="form-note">Try <b>ALIYA10</b> (10% off), <b>DIAMOND5</b> (5% off diamonds) or <b>FESTIVE5000</b> (₹5,000 off above ₹75,000).</p>
+        </div>
+      </div>
+
+      <div class="empty-state card" id="cartEmpty" hidden>
+        <div class="big">🛍️</div>
+        <h3>Your bag is empty</h3>
+        <p>Discover unique gold and diamond pieces waiting for you.</p>
+        <a class="btn btn-gold" href="shop.html">Start Shopping</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/cart.js"></script>
+</body>
+</html>

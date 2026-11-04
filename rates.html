@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rates & Offers — Aliya Jewellery</title>
+  <meta name="description" content="Today's gold and diamond rates plus flexible offers at Aliya Jewellery." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="rates">
+
+  <div id="header"></div>
+
+  <section class="page-banner">
+    <div class="container">
+      <div class="crumbs"><a href="index.html">Home</a> / Rates &amp; Offers</div>
+      <h1>Today's Rates &amp; Offers</h1>
+      <p>Transparent pricing, refreshed every morning — plus flexible offers you can stack.</p>
+    </div>
+  </section>
+
+  <!-- RATES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Updated Daily</span>
+        <h2>Gold Rate Card</h2>
+      </div>
+
+      <div class="card" style="margin-bottom:26px">
+        <div class="rate-updated" id="rateUpdated"></div>
+        <table class="rates-table">
+          <thead>
+            <tr><th>Purity</th><th>Rate</th><th>Unit</th><th>Yesterday</th></tr>
+          </thead>
+          <tbody id="goldRows"></tbody>
+        </table>
+      </div>
+
+      <div class="section-head" style="margin-top:44px">
+        <span class="kicker">Certified Stones</span>
+        <h2>Diamond Rate Card</h2>
+      </div>
+
+      <div class="card" style="margin-bottom:26px">
+        <table class="rates-table">
+          <thead>
+            <tr><th>Grade</th><th>Rate</th><th>Unit</th><th>Certificate</th></tr>
+          </thead>
+          <tbody id="diamondRows"></tbody>
+        </table>
+      </div>
+
+      <p class="rate-note">
+        <b>Note:</b> Rates are indicative and exclusive of GST (3%), making charges, stone charges and hallmarking fees.
+        Rates may vary by up to 2% within the day based on bullion markets. Final price is always confirmed before purchase.
+      </p>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Flexible Savings</span>
+        <h2>Current Offers</h2>
+        <p>Copy a code, add pieces to your bag, and apply it at checkout — that's it.</p>
+      </div>
+      <div class="offer-grid" id="offersGrid"></div>
+
+      <div class="card" style="margin-top:30px">
+        <h2>How our flexible offers work</h2>
+        <ul class="spec-list" style="border-top:none">
+          <li><span>Stack with sale prices</span><span>Yes — coupons apply on discounted prices too</span></li>
+          <li><span>Minimum order</span><span>ALIYA10 &amp; DIAMOND5: none · FESTIVE5000: ₹75,000</span></li>
+          <li><span>Valid on</span><span>All gold &amp; diamond jewellery online and in-store</span></li>
+          <li><span>Exchange &amp; buyback</span><span>30-day exchange · lifetime buyback at prevailing rate*</span></li>
+        </ul>
+        <a class="btn btn-gold" href="shop.html">Shop &amp; Save Now</a>
+      </div>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      document.getElementById("rateUpdated").textContent = "Rates updated on " + RATES.updated;
+
+      document.getElementById("goldRows").innerHTML = RATES.gold.map(function (g, i) {
+        var yesterday = g.perGram - [80, 75, 60][i];
+        var change = g.perGram - yesterday;
+        return "<tr><td><b>" + g.icon + " " + g.purity + "</b></td><td>" + formatINR(g.perGram) +
+          "</td><td>per gram</td><td style='color:var(--success)'>▲ " + formatINR(yesterday) + " (+" + change + ")</td></tr>";
+      }).join("");
+
+      document.getElementById("diamondRows").innerHTML = RATES.diamond.map(function (d) {
+        return "<tr><td><b>" + d.icon + " " + d.purity + "</b></td><td>" + formatINR(d.perCarat) +
+          "</td><td>per carat</td><td>IGI / GIA</td></tr>";
+      }).join("");
+
+      document.getElementById("offersGrid").innerHTML = OFFERS.map(function (o) {
+        return '<div class="offer-card"><span class="offer-tag">' + o.tag + "</span><h3>" + o.title +
+          '</h3><p>' + o.text + '</p><div class="code-box"><code>' + o.code +
+          '</code><button class="btn btn-dark btn-sm" data-copy="' + o.code + '">Copy</button></div></div>';
+      }).join("");
+
+      document.querySelectorAll("[data-copy]").forEach(function (b) {
+        b.addEventListener("click", function () {
+          if (navigator.clipboard) navigator.clipboard.writeText(b.dataset.copy);
+          showToast("Code " + b.dataset.copy + " copied");
+        });
+      });
+    });
+  </script>
+</body>
+</html>

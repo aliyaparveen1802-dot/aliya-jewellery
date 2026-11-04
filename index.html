@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Aliya — Fine Gold & Diamond Jewellery</title>
+  <meta name="description" content="Aliya Jewellery — hallmarked gold and certified diamond jewellery with daily rates and flexible offers." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body data-page="home">
+
+  <div id="header"></div>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-grid">
+      <div>
+        <span class="eyebrow">Since 1998 · BIS Hallmarked</span>
+        <h1>Jewellery that tells <em>your</em> story</h1>
+        <p>
+          Welcome to Aliya — where heritage craftsmanship meets modern design.
+          Explore unique gold and diamond pieces at today's transparent rates,
+          with flexible offers made for every celebration.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-gold" href="shop.html">Explore Collection</a>
+          <a class="btn btn-outline" href="rates.html" style="color:#e8c65a;border-color:#e8c65a">Today's Rates</a>
+        </div>
+        <div class="hero-stats">
+          <div><b>25+</b><span>YEARS OF TRUST</span></div>
+          <div><b>100%</b><span>BIS HALLMARKED</span></div>
+          <div><b>IGI</b><span>CERTIFIED DIAMONDS</span></div>
+        </div>
+      </div>
+      <div class="hero-card">
+        <h3>◆ TODAY'S RATES</h3>
+        <div id="heroRates"></div>
+        <p class="rate-date">Updated: <span id="rateDate"></span> · Indicative rates</p>
+        <a class="btn btn-gold btn-block" href="shop.html">Shop at Today's Rate</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RATES -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Live Value</span>
+        <h2>Gold &amp; Diamond Rates</h2>
+        <p>Transparent daily pricing — what you see is what you start from. Making charges and GST shown upfront at checkout.</p>
+      </div>
+      <div class="rate-grid" id="homeRates"></div>
+      <p class="rate-note">Rates are indicative and refreshed every morning. Final price includes making charges and applicable GST.</p>
+    </div>
+  </section>
+
+  <!-- OFFERS -->
+  <section class="section section-alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Flexible Offers</span>
+        <h2>Offers You'll Love</h2>
+        <p>Stack the savings — copy a code and apply it in your bag. No hidden conditions.</p>
+      </div>
+      <div class="offer-grid" id="homeOffers"></div>
+    </div>
+  </section>
+
+  <!-- FEATURED -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="kicker">Handpicked</span>
+        <h2>Featured Pieces</h2>
+        <p>One-of-a-kind designs chosen by our karigars this season.</p>
+      </div>
+      <div class="product-grid" id="homeFeatured"></div>
+      <div style="text-align:center;margin-top:34px">
+        <a class="btn btn-dark" href="shop.html">View All Jewellery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-band">
+    <div class="container">
+      <h2>Visit Our Boutique</h2>
+      <p>Try before you buy. Our stylists will help you find the piece that fits your moment — walk-ins welcome.</p>
+      <a class="btn btn-dark" href="contact.html">Book an Appointment</a>
+    </div>
+  </section>
+
+  <div id="footer"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      var wrap = document.getElementById("heroRates");
+      var rows = RATES.gold.map(function (g) {
+        return '<div class="rate-row"><span class="r-name">' + g.purity + ' Gold</span><span class="r-val">' + formatINR(g.perGram) + ' <small>/g</small></span></div>';
+      });
+      rows.push('<div class="rate-row"><span class="r-name">Diamond (1 ct)</span><span class="r-val">' + formatINR(RATES.diamond[0].perCarat) + ' <small>/ct</small></span></div>');
+      wrap.innerHTML = rows.join("");
+      document.getElementById("rateDate").textContent = RATES.updated;
+    });
+  </script>
+</body>
+</html>
